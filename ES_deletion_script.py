@@ -59,7 +59,8 @@ def get_old_empi_from_snowflake():
 
     try:
         query = """
-           SELECT DISTINCT substring(value,1,LENGTH(value)) as value FROM dap.merge_case_execution_history t,TABLE(FLATTEN(input => t.old_empis)) f WHERE NULLIF(t.new_empi, '') IS NOT NULL AND status='success' AND EXTRACT(YEAR FROM ingested_at)>='2025';"""
+           SELECT DISTINCT substring(value,1,LENGTH(value)) as value FROM dap.merge_case_execution_history t,TABLE(FLATTEN(input => t.old_empis)) f 
+           WHERE NULLIF(t.new_empi, '') IS NOT NULL AND status='success' AND EXTRACT(YEAR FROM ingested_at)>='2025';"""
         cur = con.cursor()
         cur.execute(query)
         results = cur.fetchall()
